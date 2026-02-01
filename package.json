@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "send-mail": "node scripts/send-daily-mail.js"
   },
   "keywords": ["legal", "compliance", "news", "daily"],
   "author": "",
@@ -13,6 +14,7 @@
   "dependencies": {
     "express": "^4.18.2",
     "rss-parser": "^3.13.0",
-    "node-cache": "^5.1.2"
+    "node-cache": "^5.1.2",
+    "@sendgrid/mail": "^8.1.0"
   }
 }
