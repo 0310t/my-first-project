@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>法務・コンプライアンス日次ニュース</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <!-- ヘッダー -->
+    <header class="header">
+      <div class="header-content">
+        <h1 class="logo">
+          <span class="logo-icon">&#9878;</span>
+          法務・コンプライアンス日次ニュース
+        </h1>
+        <p class="header-subtitle">Legal & Compliance Daily News</p>
+      </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="main-content">
+      <!-- フィルターパネル -->
+      <div class="filter-panel">
+        <div class="filter-group">
+          <label for="category-select">カテゴリ:</label>
+          <select id="category-select">
+            <option value="all">すべて</option>
+            <option value="legal">法務省</option>
+            <option value="finance">金融規制</option>
+            <option value="consumer">消費者保護</option>
+            <option value="antitrust">独禁法</option>
+            <option value="privacy">個人情報保護</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="date-filter">日付:</label>
+          <input type="date" id="date-filter">
+        </div>
+
+        <div class="filter-group search-group">
+          <label for="search-input">検索:</label>
+          <input type="text" id="search-input" placeholder="キーワードを入力...">
+        </div>
+
+        <button id="refresh-btn" class="btn-refresh" title="最新情報を取得">
+          &#8635; 更新
+        </button>
+      </div>
+
+      <!-- ステータスバー -->
+      <div class="status-bar">
+        <span id="news-count">0件のニュース</span>
+        <span id="last-updated">最終更新: --</span>
+      </div>
+
+      <!-- ニュースリスト -->
+      <div id="news-container" class="news-container">
+        <div class="loading">
+          <div class="loading-spinner"></div>
+          <p>ニュースを読み込んでいます...</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- フッター -->
+    <footer class="footer">
+      <p>&copy; 2024 法務・コンプライアンス日次ニュース配信アプリ</p>
+      <p class="footer-note">
+        ※ニュースは各省庁の公式RSSフィードより取得しています。
+        正確な情報は各省庁の公式サイトをご確認ください。
+      </p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
