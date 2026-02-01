@@ -1,0 +1,18 @@
+{
+  "name": "legal-news-app",
+  "version": "1.0.0",
+  "description": "法務・コンプライアンス分野の日次ニュース配信アプリ",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["legal", "compliance", "news", "daily"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "rss-parser": "^3.13.0",
+    "node-cache": "^5.1.2"
+  }
+}
