@@ -132,11 +132,9 @@ class LegalNewsApp {
   // カテゴリに応じたCSSクラスを取得
   getCategoryClass(category) {
     const classMap = {
-      '法務省': 'category-legal',
-      '金融規制': 'category-finance',
-      '消費者保護': 'category-consumer',
-      '独禁法': 'category-antitrust',
-      '個人情報保護': 'category-privacy'
+      '政治・法務': 'category-legal',
+      '経済・金融': 'category-finance',
+      '社会・事件': 'category-consumer'
     };
     return classMap[category] || 'category-legal';
   }
