@@ -17,44 +17,53 @@ const cache = new NodeCache({ stdTTL: 3600 });
 // 静的ファイルの提供
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 法務・コンプライアンス関連のRSSフィードソース
+// ニュースRSSフィードソース（NHKニュース）
 const NEWS_SOURCES = [
   {
-    name: '法務省新着情報',
-    url: 'https://www.moj.go.jp/rss/index.xml',
-    category: '法務省'
+    name: 'NHK政治ニュース',
+    url: 'https://www.nhk.or.jp/rss/news/cat3.xml',
+    category: '政治・法務'
   },
   {
-    name: '金融庁報道発表',
-    url: 'https://www.fsa.go.jp/news/news.rdf',
-    category: '金融規制'
+    name: 'NHK経済ニュース',
+    url: 'https://www.nhk.or.jp/rss/news/cat4.xml',
+    category: '経済・金融'
   },
   {
-    name: '消費者庁新着情報',
-    url: 'https://www.caa.go.jp/rss/policies.rdf',
-    category: '消費者保護'
-  },
-  {
-    name: '公正取引委員会',
-    url: 'https://www.jftc.go.jp/rss/index.xml',
-    category: '独禁法'
-  },
-  {
-    name: '個人情報保護委員会',
-    url: 'https://www.ppc.go.jp/files/rss/news.xml',
-    category: '個人情報保護'
+    name: 'NHK社会ニュース',
+    url: 'https://www.nhk.or.jp/rss/news/cat2.xml',
+    category: '社会・事件'
   }
+];
+
+// 法務・コンプライアンス関連キーワード
+const LEGAL_KEYWORDS = [
+  '法', '法律', '法案', '法改正', '法務', '裁判', '判決', '訴訟', '弁護士',
+  '規制', '違反', '処分', '命令', '罰則', '罰金', '逮捕', '起訴', '摘発',
+  '金融庁', '公正取引', '独禁', '独占禁止', 'カルテル', '談合',
+  '個人情報', 'プライバシー', '情報漏洩', 'データ保護',
+  '消費者', '景品表示', '不当表示', '詐欺', '悪質商法',
+  'コンプライアンス', 'ガバナンス', '内部統制', '監査',
+  '株主', '取締役', '会社法', '商法', '民法', '刑法',
+  '労働', '雇用', 'ハラスメント', '解雇', '賃金',
+  '税', '脱税', '申告漏れ', '課税',
+  '特許', '商標', '著作権', '知的財産',
+  '汚職', '贈収賄', '背任', '横領'
 ];
 
 // ニュースカテゴリ定義
 const CATEGORIES = {
   all: 'すべて',
-  legal: '法務省',
-  finance: '金融規制',
-  consumer: '消費者保護',
-  antitrust: '独禁法',
-  privacy: '個人情報保護'
+  politics: '政治・法務',
+  economy: '経済・金融',
+  society: '社会・事件'
 };
+
+// 法務・コンプライアンス関連ニュースかどうかを判定
+function isLegalNews(title, description) {
+  const text = `${title} ${description}`.toLowerCase();
+  return LEGAL_KEYWORDS.some(keyword => text.includes(keyword.toLowerCase()));
+}
 
 // RSSフィードを取得してパース
 async function fetchFeed(source) {
@@ -84,13 +93,19 @@ async function getAllNews() {
   const promises = NEWS_SOURCES.map(source => fetchFeed(source));
   const results = await Promise.all(promises);
 
-  // 全記事をフラット化して日付でソート
-  const allNews = results
-    .flat()
-    .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+  // 全記事をフラット化
+  const allNews = results.flat();
 
-  cache.set('allNews', allNews);
-  return allNews;
+  // 法務・コンプライアンス関連ニュースをフィルタリング
+  const legalNews = allNews.filter(item =>
+    isLegalNews(item.title, item.description)
+  );
+
+  // 日付でソート
+  legalNews.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+
+  cache.set('allNews', legalNews);
+  return legalNews;
 }
 
 // サンプルニュースデータ（フィードが取得できない場合のフォールバック）
@@ -166,11 +181,9 @@ app.get('/api/news', async (req, res) => {
 
     if (category && category !== 'all') {
       const categoryMap = {
-        'legal': '法務省',
-        'finance': '金融規制',
-        'consumer': '消費者保護',
-        'antitrust': '独禁法',
-        'privacy': '個人情報保護'
+        'politics': '政治・法務',
+        'economy': '経済・金融',
+        'society': '社会・事件'
       };
       news = news.filter(item => item.category === categoryMap[category]);
     }

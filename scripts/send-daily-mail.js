@@ -20,39 +20,48 @@ const parser = new Parser({
   }
 });
 
-// ニュースソース定義
+// ニュースソース定義（NHKニュース）
 const NEWS_SOURCES = [
   {
-    name: '法務省新着情報',
-    url: 'https://www.moj.go.jp/rss/index.xml',
-    category: '法務省',
+    name: 'NHK政治ニュース',
+    url: 'https://www.nhk.or.jp/rss/news/cat3.xml',
+    category: '政治・法務',
     priority: 1
   },
   {
-    name: '金融庁報道発表',
-    url: 'https://www.fsa.go.jp/news/news.rdf',
-    category: '金融規制',
+    name: 'NHK経済ニュース',
+    url: 'https://www.nhk.or.jp/rss/news/cat4.xml',
+    category: '経済・金融',
     priority: 2
   },
   {
-    name: '消費者庁新着情報',
-    url: 'https://www.caa.go.jp/rss/policies.rdf',
-    category: '消費者保護',
-    priority: 3
-  },
-  {
-    name: '公正取引委員会',
-    url: 'https://www.jftc.go.jp/rss/index.xml',
-    category: '独禁法',
-    priority: 2
-  },
-  {
-    name: '個人情報保護委員会',
-    url: 'https://www.ppc.go.jp/files/rss/news.xml',
-    category: '個人情報保護',
-    priority: 2
+    name: 'NHK社会ニュース',
+    url: 'https://www.nhk.or.jp/rss/news/cat2.xml',
+    category: '社会・事件',
+    priority: 1
   }
 ];
+
+// 法務・コンプライアンス関連キーワード
+const LEGAL_KEYWORDS = [
+  '法', '法律', '法案', '法改正', '法務', '裁判', '判決', '訴訟', '弁護士',
+  '規制', '違反', '処分', '命令', '罰則', '罰金', '逮捕', '起訴', '摘発',
+  '金融庁', '公正取引', '独禁', '独占禁止', 'カルテル', '談合',
+  '個人情報', 'プライバシー', '情報漏洩', 'データ保護',
+  '消費者', '景品表示', '不当表示', '詐欺', '悪質商法',
+  'コンプライアンス', 'ガバナンス', '内部統制', '監査',
+  '株主', '取締役', '会社法', '商法', '民法', '刑法',
+  '労働', '雇用', 'ハラスメント', '解雇', '賃金',
+  '税', '脱税', '申告漏れ', '課税',
+  '特許', '商標', '著作権', '知的財産',
+  '汚職', '贈収賄', '背任', '横領'
+];
+
+// 法務・コンプライアンス関連ニュースかどうかを判定
+function isLegalNews(title, description) {
+  const text = `${title} ${description}`.toLowerCase();
+  return LEGAL_KEYWORDS.some(keyword => text.includes(keyword.toLowerCase()));
+}
 
 // RSSフィードを取得
 async function fetchFeed(source) {
@@ -82,12 +91,19 @@ async function getAllNews() {
 
   // 全記事をフラット化
   const allNews = results.flat();
+  console.log(`合計${allNews.length}件のニュースを取得`);
+
+  // 法務・コンプライアンス関連ニュースをフィルタリング
+  const legalNews = allNews.filter(item =>
+    isLegalNews(item.title, item.description)
+  );
+  console.log(`法務・コンプライアンス関連: ${legalNews.length}件`);
 
   // 24時間以内のニュースをフィルタ
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
 
-  const recentNews = allNews.filter(item => {
+  const recentNews = legalNews.filter(item => {
     const pubDate = new Date(item.pubDate);
     return pubDate >= yesterday;
   });
@@ -100,7 +116,7 @@ async function getAllNews() {
     return new Date(b.pubDate) - new Date(a.pubDate);
   });
 
-  console.log(`${recentNews.length}件のニュースを取得しました`);
+  console.log(`24時間以内の法務関連ニュース: ${recentNews.length}件`);
   return recentNews;
 }
 
@@ -298,7 +314,7 @@ function generateHtmlContent(featuredNews, otherNews, dateStr) {
           法務・コンプライアンス日次ニュース配信
         </p>
         <p style="color: #718096; font-size: 11px; margin: 8px 0 0 0;">
-          ※本メールは自動配信です。ニュースは各省庁の公式RSSフィードより取得しています。
+          ※本メールは自動配信です。ニュースはNHKニュースRSSフィードより取得しています。
         </p>
       </td>
     </tr>
