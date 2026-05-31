@@ -116,52 +116,52 @@ function getSampleNews() {
 
   return [
     {
-      title: '【法務省】会社法改正に関するパブリックコメント募集開始',
-      link: 'https://www.moj.go.jp/',
+      title: '改正会社法が成立 株主総会のオンライン開催が可能に',
+      link: 'https://www3.nhk.or.jp/news/',
       pubDate: today.toISOString(),
-      description: '法務省は、会社法施行規則の一部改正案について、広く国民からの意見を募集します。',
-      source: '法務省新着情報',
-      category: '法務省'
+      description: '企業の株主総会をオンラインのみで開催することを認める改正会社法が参議院本会議で可決・成立しました。',
+      source: 'NHK政治ニュース',
+      category: '政治・法務'
     },
     {
-      title: '【金融庁】金融商品取引業者等向け監督指針の改正について',
-      link: 'https://www.fsa.go.jp/',
+      title: '金融庁 暗号資産交換業者に業務改善命令',
+      link: 'https://www3.nhk.or.jp/news/',
       pubDate: today.toISOString(),
-      description: '金融商品取引業者等向けの総合的な監督指針について改正を行いました。',
-      source: '金融庁報道発表',
-      category: '金融規制'
+      description: '金融庁は、顧客資産の管理体制に問題があったとして、暗号資産交換業者に対し業務改善命令を出しました。',
+      source: 'NHK経済ニュース',
+      category: '経済・金融'
     },
     {
-      title: '【消費者庁】景品表示法に基づく措置命令について',
-      link: 'https://www.caa.go.jp/',
+      title: '大手企業の元役員 背任容疑で逮捕',
+      link: 'https://www3.nhk.or.jp/news/',
       pubDate: today.toISOString(),
-      description: '不当な表示を行った事業者に対し、措置命令を行いました。',
-      source: '消費者庁新着情報',
-      category: '消費者保護'
+      description: '会社に損害を与えたとして、大手企業の元役員が背任の疑いで逮捕されました。',
+      source: 'NHK社会ニュース',
+      category: '社会・事件'
     },
     {
-      title: '【公正取引委員会】独占禁止法違反事件の処理状況について',
-      link: 'https://www.jftc.go.jp/',
+      title: '公正取引委員会 大手IT企業に排除措置命令',
+      link: 'https://www3.nhk.or.jp/news/',
       pubDate: yesterday.toISOString(),
-      description: '令和6年度における独占禁止法違反事件の処理状況を公表しました。',
-      source: '公正取引委員会',
-      category: '独禁法'
+      description: '公正取引委員会は、独占禁止法違反で大手IT企業に排除措置命令を出しました。',
+      source: 'NHK経済ニュース',
+      category: '経済・金融'
     },
     {
-      title: '【個人情報保護委員会】個人情報保護法ガイドラインの改正',
-      link: 'https://www.ppc.go.jp/',
+      title: '個人情報保護法違反で企業に是正勧告',
+      link: 'https://www3.nhk.or.jp/news/',
       pubDate: yesterday.toISOString(),
-      description: '個人情報の保護に関する法律についてのガイドラインを改正しました。',
-      source: '個人情報保護委員会',
-      category: '個人情報保護'
+      description: '個人情報保護委員会は、顧客情報の管理に問題があった企業に是正勧告を出しました。',
+      source: 'NHK社会ニュース',
+      category: '社会・事件'
     },
     {
-      title: '【法務省】民事訴訟法等の一部を改正する法律の施行について',
-      link: 'https://www.moj.go.jp/',
+      title: '労働基準法改正案 今国会に提出へ',
+      link: 'https://www3.nhk.or.jp/news/',
       pubDate: yesterday.toISOString(),
-      description: '民事訴訟手続のIT化に関する法律が施行されました。',
-      source: '法務省新着情報',
-      category: '法務省'
+      description: '政府は労働時間規制の見直しを含む労働基準法改正案を今国会に提出する方針です。',
+      source: 'NHK政治ニュース',
+      category: '政治・法務'
     }
   ];
 }

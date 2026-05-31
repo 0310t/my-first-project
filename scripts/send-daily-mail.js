@@ -125,31 +125,31 @@ function getSampleNews() {
   const today = new Date();
   return [
     {
-      title: '【法務省】会社法改正に関するパブリックコメント募集開始',
-      link: 'https://www.moj.go.jp/',
+      title: '改正会社法が成立 株主総会のオンライン開催が可能に',
+      link: 'https://www3.nhk.or.jp/news/',
       pubDate: today.toISOString(),
-      description: '法務省は、会社法施行規則の一部改正案について、広く国民からの意見を募集します。改正案では、株主総会の電子化推進や取締役会のオンライン開催に関する規定が含まれています。',
-      source: '法務省新着情報',
-      category: '法務省',
+      description: '企業の株主総会をオンラインのみで開催することを認める改正会社法が参議院本会議で可決・成立しました。これにより、企業は株主総会の開催方法について柔軟な選択が可能になります。',
+      source: 'NHK政治ニュース',
+      category: '政治・法務',
       priority: 1
     },
     {
-      title: '【金融庁】金融商品取引業者等向け監督指針の改正について',
-      link: 'https://www.fsa.go.jp/',
+      title: '金融庁 暗号資産交換業者に業務改善命令',
+      link: 'https://www3.nhk.or.jp/news/',
       pubDate: today.toISOString(),
-      description: '金融商品取引業者等向けの総合的な監督指針について改正を行いました。顧客本位の業務運営に関する原則の実効性確保が主な改正点です。',
-      source: '金融庁報道発表',
-      category: '金融規制',
+      description: '金融庁は、顧客資産の管理体制に問題があったとして、暗号資産交換業者に対し業務改善命令を出しました。顧客保護の観点から、内部管理体制の強化を求めています。',
+      source: 'NHK経済ニュース',
+      category: '経済・金融',
       priority: 2
     },
     {
-      title: '【消費者庁】景品表示法に基づく措置命令について',
-      link: 'https://www.caa.go.jp/',
+      title: '大手企業の元役員 背任容疑で逮捕',
+      link: 'https://www3.nhk.or.jp/news/',
       pubDate: today.toISOString(),
-      description: '不当な表示を行った事業者に対し、措置命令を行いました。',
-      source: '消費者庁新着情報',
-      category: '消費者保護',
-      priority: 3
+      description: '会社に損害を与えたとして、大手企業の元役員が背任の疑いで逮捕されました。捜査当局は関係者から事情を聴くなど、全容解明を進めています。',
+      source: 'NHK社会ニュース',
+      category: '社会・事件',
+      priority: 1
     }
   ];
 }
